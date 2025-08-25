@@ -3,19 +3,29 @@
 #include <cstdlib>
 #include <string>
 #include <cctype>
+#include <vector>
+#include <utility>
 
 std::string SolicitarDatos();
 std::string GenerarCupon (std::string letras);
-void VerificarPremio (std::string cupon);
+std::string VerificarPremio (std::string cupon);
+
+struct InformacionCupon {
+  int cantidad_cupones;
+  std::string nombre_usuario,
+  std::vector<std::pair<std::string, std::string>> cupones_generados;
+}cupon;
+
+std::vector<struct InformacionCupon> inf_cupones;
 
 int main(){
-  int cantidad_cupones = 0;
-
+  std::cout<<"Ingrese su nombre \n";
+  std::cin>>cupon.nombre_usuario;
   std::cout<<"Ingrese la cantidad de cupones que desea generar \n";
-  std::cin>>cantidad_cupones;
-  std::string cupones[cantidad_cupones];
+  std::cin>>cupon.cantidad_cupones;
+  //std::vector<std::string> cupones; //[cantidad_cupones]
 
-  for (int i = 0; i < cantidad_cupones; i++){
+  for (int i = 0; i < cupon.cantidad_cupones; i++){
     std::string letras;
     std::string cupon_generado;
 
@@ -24,15 +34,23 @@ int main(){
     cupon_generado = GenerarCupon(letras);
     std::cout<<"El cupon generado es: "<< cupon_generado <<std::endl;
 
-    VerificarPremio(cupon_generado);
-    cupones[i]=cupon_generado;
-  }
-  std::cout<<"Cupones generados: \n";
-    for (int i = 0; i < cantidad_cupones; i++){
-    std::cout<<cupones[i] <<std::endl;
-  }
-  
 
+    VerificarPremio(cupon_generado);
+    //cupones[i]=cupon_generado;
+    //cupones.push_back(cupon_generado);
+    cupon.cupones_generados.push_back({cupon_generado, "premio"});
+  }
+  std::cout<<"///////////////////////" <<std::endl;
+  std::cout<<"Cupones generados: \n";
+
+    /*for (auto cupon: cupones){
+    std::cout<<cupon <<std::endl;
+    VerificarPremio(cupon);
+  }*/
+  inf_cupones.pushback(cupon);
+  std::cout<<"Iprimiendo informacion... \n";
+  std::cout<< cupon.cantidad_cupones <<std::endl;
+  
   return 0;
 }
 
@@ -59,13 +77,15 @@ std::string GenerarCupon (std::string letras) {
   return letras + conversion;
 }
 
-void VerificarPremio (std::string cupon) {
+std::string VerificarPremio (std::string cupon) {
   std::string numeros = cupon.substr(3,4);
+  std::string premio;
   int valor_cupon = std::stoi(numeros);
   if (valor_cupon%2 == 0) {
-      std::cout<<"Tiene premio \n";
+      premio = "Tiene premio";
   }
   else{
-      std::cout<<"No tiene premio \n";
+    premio = "No tiene premio";
   }
+  return premio;
 }
