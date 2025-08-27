@@ -6,24 +6,49 @@
 #include <vector>
 #include <utility>
 
+struct InformacionPersona{
+  std::string nombre_usuario;
+};
+
 std::string SolicitarDatos();
 std::string GenerarCupon (std::string letras);
 std::string VerificarPremio (std::string cupon);
+void Imprimir (std::vector<struct InformacionCupon> vector_cupon);
+
+struct InformacionCupon SolicitarDatosGenerales();
 
 struct InformacionCupon {
   int cantidad_cupones;
-  std::string nombre_usuario,
+  struct InformacionPersona inf_persona;
   std::vector<std::pair<std::string, std::string>> cupones_generados;
-}cupon;
+};
 
-std::vector<struct InformacionCupon> inf_cupones;
+std::vector<struct InformacionCupon> vector_cupones;
 
 int main(){
+  char opc;
+  do{
+  struct InformacionCupon cupon;
+  cupon = SolicitarDatosGenerales();
+
+  vector_cupones.push_back(cupon);
+
+  Imprimir(vector_cupones);
+  std::cout<<"//////////////////// \n";
+  std::cout<<"Desea anadir otro registro? \n";
+  std::cin>>opc;
+  }while (opc == 's' || opc == 'S');
+  
+  return 0;
+}
+
+struct InformacionCupon SolicitarDatosGenerales() {
+  struct InformacionCupon cupon;
+  std::string premio;
   std::cout<<"Ingrese su nombre \n";
-  std::cin>>cupon.nombre_usuario;
+  std::cin>>cupon.inf_persona.nombre_usuario;
   std::cout<<"Ingrese la cantidad de cupones que desea generar \n";
   std::cin>>cupon.cantidad_cupones;
-  //std::vector<std::string> cupones; //[cantidad_cupones]
 
   for (int i = 0; i < cupon.cantidad_cupones; i++){
     std::string letras;
@@ -32,26 +57,10 @@ int main(){
     letras = SolicitarDatos();
 
     cupon_generado = GenerarCupon(letras);
-    std::cout<<"El cupon generado es: "<< cupon_generado <<std::endl;
-
-
-    VerificarPremio(cupon_generado);
-    //cupones[i]=cupon_generado;
-    //cupones.push_back(cupon_generado);
-    cupon.cupones_generados.push_back({cupon_generado, "premio"});
+    premio = VerificarPremio(cupon_generado);
+    cupon.cupones_generados.push_back({cupon_generado, premio});
   }
-  std::cout<<"///////////////////////" <<std::endl;
-  std::cout<<"Cupones generados: \n";
-
-    /*for (auto cupon: cupones){
-    std::cout<<cupon <<std::endl;
-    VerificarPremio(cupon);
-  }*/
-  inf_cupones.pushback(cupon);
-  std::cout<<"Iprimiendo informacion... \n";
-  std::cout<< cupon.cantidad_cupones <<std::endl;
-  
-  return 0;
+  return cupon;
 }
 
 std::string SolicitarDatos(){
@@ -82,10 +91,22 @@ std::string VerificarPremio (std::string cupon) {
   std::string premio;
   int valor_cupon = std::stoi(numeros);
   if (valor_cupon%2 == 0) {
-      premio = "Tiene premio";
+    premio = "Tiene premio";
   }
   else{
     premio = "No tiene premio";
   }
   return premio;
+}
+
+void Imprimir(std::vector<struct InformacionCupon> vector_cupon) {
+  std::cout<<"//////////////////// \n";
+  std::cout<<"Imprimiendo informacion... \n";
+  for (auto c: vector_cupones){
+    std::cout<<"Nombre de la persona: " << c.inf_persona.nombre_usuario <<"\n";
+    std::cout<<"Cantidad de cupones: " << c.cantidad_cupones <<"\n";
+    for (auto c_g: c.cupones_generados){
+      std::cout<<"Cupon: " <<c_g.first << " -Premio: " <<c_g.second << "\n";
+    }
+  }
 }
