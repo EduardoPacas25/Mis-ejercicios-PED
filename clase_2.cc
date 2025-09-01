@@ -15,17 +15,18 @@ struct InformacionCantante {
 };
 
 struct InformacionCantante SolicitarDatos();
+struct InformacionCantante cantante;
+void Imprimir(struct placeholder);
 
 int main(){
-  struct InformacionCantante cantante;
-  cantante = SolicitarDatos();
-  
 
+  cantante = SolicitarDatos();
+  Imprimir(cantante);
+  
   return 0;
 }
 
 struct InformacionCantante SolicitarDatos(){
-  struct InformacionCantante cantante;
   std::cout<<"Ingrese el nombre del cantante \n";
   std::cin>> cantante.nombre_cantante;
   std::cout<<"Ingrese la nacionalidad del cantante \n";
@@ -41,4 +42,14 @@ struct InformacionCantante SolicitarDatos(){
     cantante.album_cantante.canciones.push_back({nombre_c, i+1});
   }
   return cantante;
+}
+
+void Imprmir(struct placeholder){
+  std::cout<<cantante.nombre_cantante <<"\n";
+  std::cout<<cantante.nacionalidad_cantante<<"\n";
+  std::cout<<cantante.album_cantante.nombre_album<<"\n";
+  std::cout<<cantante.album_cantante.fecha_lanzamiento<<"\n";
+  for (auto c: cantante.album_cantante.canciones){
+    std::cout<< c.first <<"  " << c.second <<"\n";
+  }
 }
