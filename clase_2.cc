@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <string>
 
 struct InformacionAlbum {
   std::string nombre_album;
   int fecha_lanzamiento;
   std::vector<std::pair<std::string, int>> canciones;
+  int antiguedad_album;
 };
 
 struct InformacionCantante {
@@ -17,10 +19,12 @@ struct InformacionCantante {
 struct InformacionCantante SolicitarDatos();
 struct InformacionCantante cantante;
 void Imprimir(InformacionCantante cantante);
+void CalcularAntiguedad(int lanzamiento);
 
 int main(){
 
   cantante = SolicitarDatos();
+  CalcularAntiguedad(cantante.album_cantante.fecha_lanzamiento);
   Imprimir(cantante);
 
   return 0;
@@ -48,11 +52,16 @@ struct InformacionCantante SolicitarDatos(){
 }
 
 void Imprimir(InformacionCantante cantante){
-  std::cout<<cantante.nombre_cantante <<"\n";
-  std::cout<<cantante.nacionalidad_cantante<<"\n";
-  std::cout<<cantante.album_cantante.nombre_album<<"\n";
-  std::cout<<cantante.album_cantante.fecha_lanzamiento<<"\n";
+  std::cout<< "--Cantante: "<<cantante.nombre_cantante <<"\n";
+  std::cout<< "--Nacionalidad: "<<cantante.nacionalidad_cantante<<"\n";
+  std::cout<< "--Album: "<<cantante.album_cantante.nombre_album<<"\n";
+  std::cout<< "--Año de lanzamiento: "<<cantante.album_cantante.fecha_lanzamiento<<"\n";
   for (auto c: cantante.album_cantante.canciones){
-    std::cout<< c.first <<"  " << c.second <<"\n";
+    std::cout<< c.second <<". " << c.first <<"\n";
   }
+  std::cout<< "-- El album fue lanzado hace " <<cantante.album_cantante.antiguedad_album <<" años" <<"\n";
+}
+
+void CalcularAntiguedad(int lanzamiento){
+  cantante.album_cantante.antiguedad_album = 2025 -  cantante.album_cantante.fecha_lanzamiento;
 }
