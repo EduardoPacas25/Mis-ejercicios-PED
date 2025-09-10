@@ -1,33 +1,34 @@
 #include <iostream>
 
-int Acumulador(int n);
-int AcumuladorRef(int &n);
-int AcumuladorPtr(int *n);
+std::string SaludoPorPuntero(std::string *saludo);
+std::string SaludoPorValor(std::string saludo);
+std::string SaludoPorReferencia(std::string &saludo);
 
 int main(){
-  int x = 10;
+  std::string saludo = "Hola";
   
-  std::cout<<"Nuevo valor - " <<Acumulador(x) <<"\n"; //11
-  std::cout<<"Valor de x: " <<x <<"\n"; //10
-  std::cout<<"Nuevo valor - " <<AcumuladorRef(x) <<"\n"; //11
-  std::cout<<"Valor de x: " <<x <<"\n"; //11
-  std::cout<<"Nuevo valor - " <<AcumuladorPtr(&x) <<"\n"; //12
-  std::cout<<"Valor de x: " <<x <<"\n"; //12
+  std::cout<<"Saludo original: " <<saludo <<"\n"; //Hola
+  std::cout<<"Nuevo saludo - " <<SaludoPorPuntero(&saludo) <<"\n"; //Buendia
+  std::cout<<"Saludo original: " <<saludo <<"\n"; //Buendia
+  std::cout<<"Nuevo saludo - " <<SaludoPorValor(saludo) <<"\n"; //Buenastardes
+  std::cout<<"Saludo original: " <<saludo <<"\n"; //Buendia
+  std::cout<<"Nuevo saludo - " <<SaludoPorReferencia(saludo) <<"\n"; //Buenasnoches
+  std::cout<<"Saludo original: " <<saludo <<"\n"; //Buenasnoches
 
   return 0;
 }
 
-int Acumulador(int n){
-  n = n+1;
-  return n;
+std::string SaludoPorPuntero(std::string *saludo){
+  *saludo = "Buendia";
+  return *saludo;
 }
 
-int AcumuladorRef(int &n){
-  n = n+1;
-  return n;
+std::string SaludoPorValor(std::string saludo){
+  saludo = "Buenastardes";
+  return saludo;
 }
 
-int AcumuladorPtr(int *n){
-  *n = *n+1;
-  return *n;
+std::string SaludoPorReferencia(std::string &saludo){
+  saludo = "Buenasnoches";
+  return saludo;
 }
