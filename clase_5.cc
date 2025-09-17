@@ -1,23 +1,27 @@
 #include <iostream>
 
 int main(){
-  int arreglo [3] = {1, 3, 100};
+  int arreglo [5] = {1, 2, 3, 4, 5};
   // Apuntando a la dirección de memoria de la posición o
   int *ptr = arreglo;
-  
-  //calcluar el peso en bytes de un int
-  std::cout<<"Peso en bytes de int: "<<sizeof(int) <<"\n";
 
-  //Acceder a los elementos de un arreglo
-  std::cout<< "Dir. memoria pos [0]: " << &arreglo
-    << " Valor pos[0]: " << arreglo[0] <<"\n";
+  int suma = 0;
+
+  std::cout<<"Valor: " <<arreglo[0] <<" Dir. memoria: "<<&arreglo <<"\n"
+    <<"Valor: " <<arreglo[1] <<" Dir. memoria: "<<arreglo+1 <<"\n"
+    <<"Valor: " <<arreglo[2] <<" Dir. memoria: "<<&arreglo+2 <<"\n"
+    <<"Valor: " <<arreglo[3] <<" Dir. memoria: "<<&arreglo+3 <<"\n" 
+    <<"Valor: " <<arreglo[4] <<" Dir. memoria: "<<&arreglo+4 <<"\n";
   
-  // Acceder en notación puntero sin puntero
-  std::cout<< "Dir. memoria pos [1]: " <<(arreglo + 1)
-    << " Valor pos[1]: " << *(arreglo + 1)<<"\n";
-  
-  //acceder a los elementos con puntero
-  std::cout<<"Dir. memoria pos [2]: " <<ptr+2 
-    <<" Valor pos[2]: " << *(ptr + 2);
+  for (int i = 0; i<5; i++){
+    suma = suma+ arreglo[i];
+  }
+  std::cout<<"Suma total: " <<suma <<"\n";
+  std::cout<<"///////////////////////////////////// \n";
+
+  for (int i = 0; i<5; i++){
+    std::cout<<"Dir. memoria: " <<(arreglo+i)
+      <<" Valor: " << *(arreglo+i) <<"\n";
+  }
   return 0;
 }
