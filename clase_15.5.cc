@@ -11,9 +11,12 @@ struct Luchador
 std::vector<struct Luchador> luchadores;
 struct Luchador SolicitarDatos();
 
+bool CompararPorPeso(const Luchador &l1, const Luchador &l2)
+              { return l1.peso > l2.peso; }
+
 int main()
 {
-    float opcpeso;
+    float peso_buscado;
     Luchador luchador;
     for (int i = 0; i < 5; i++)
     {
@@ -22,18 +25,24 @@ int main()
         luchadores.push_back(luchador);
     }
 
-    std::sort(luchadores.begin(), luchadores.end(),[](const Luchador& l1, const Luchador& l2){
-        return l1.peso < l2.peso;
-    });
+    std::sort(luchadores.begin(), luchadores.end(), CompararPorPeso);
 
-    for (auto l : luchadores){
-        std::cout << "Luchador: " << l.nombre << "--- peso lbs: " << l.peso <<"\n";
+    for (auto l : luchadores)
+    {
+        std::cout << "Luchador: " << l.nombre << " --- peso lbs: " << l.peso << "\n";
     }
 
+    std::cout << "Ingrese el peso en libras a buscar \n";
+    std::cin >> peso_buscado;
+    bool busqueda = std::binary_search(luchadores.begin(), luchadores.end(), Luchador{"", peso_buscado}, CompararPorPeso);
 
-    std::cout <<"Que peso pesado desea buscar? \n";
-    std::cin >> opcpeso;
-    std::binary_search(luchadores.begin(), luchadores.end(), opcpeso);
+    if (busqueda)
+    {
+        std::cout<<"Peso encontrado \n";
+    }
+    else{
+        std::cout<<"Peso no encontrado \n";
+    }
 
     return 0;
 }
