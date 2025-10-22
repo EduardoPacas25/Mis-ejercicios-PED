@@ -12,11 +12,16 @@ std::vector<struct Luchador> luchadores;
 struct Luchador SolicitarDatos();
 
 bool CompararPorPeso(const Luchador &l1, const Luchador &l2)
-              { return l1.peso > l2.peso; }
+{
+    return l1.peso > l2.peso;
+}
+
+void BuscarPorNombre(std::vector<Luchador> luchadores, std::string nombre_buscado);
 
 int main()
 {
     float peso_buscado;
+    std::string nombre_buscado;
     Luchador luchador;
     for (int i = 0; i < 5; i++)
     {
@@ -38,11 +43,16 @@ int main()
 
     if (busqueda)
     {
-        std::cout<<"Peso encontrado \n";
+        std::cout << "Peso encontrado \n";
     }
-    else{
-        std::cout<<"Peso no encontrado \n";
+    else
+    {
+        std::cout << "Peso no encontrado \n";
     }
+
+    std::cout <<"Ingrese el nombre a buscar \n";
+    std::cin >> nombre_buscado;
+    BuscarPorNombre(luchadores, nombre_buscado);
 
     return 0;
 }
@@ -56,3 +66,19 @@ struct Luchador SolicitarDatos()
     std::cin >> luchador.peso;
     return luchador;
 }
+
+void BuscarPorNombre(std::vector<Luchador> luchadores, std::string nombre_buscado)
+{
+    auto it = std::find_if(luchadores.begin(), luchadores.end(), [nombre_buscado](const Luchador &luchador)
+                           { return luchador.nombre == nombre_buscado; });
+    if (it != luchadores.end())
+    {
+        std::cout << "Luchador encontrado: " << it->nombre << " con peso " << it->peso << "\n";
+    }
+    else
+    {
+        std::cout << "No se han encontrado coincidencias \n";
+    }
+}
+
+//RETO: Cambiar el vector de luchadores por lista, pila o cola
