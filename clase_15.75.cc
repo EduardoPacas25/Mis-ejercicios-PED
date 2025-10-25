@@ -40,7 +40,11 @@ int main()
     std::cout << "Ingrese el peso en libras a buscar \n";
     std::cin >> peso_buscado;
     bool busqueda = std::binary_search(luchadores.begin(), luchadores.end(),
-     Luchador{"", peso_buscado}, CompararPorPeso);
+     Luchador{"", peso_buscado}, CompararPorPeso); 
+     /*Se crea un struct tipo Luchador temporal, las llaves contienen 
+     los campos del struct y al no importar el nombre se deja vacío y se busca el peso
+     por medio de la función de comparar
+     (Éste es un parámetro extra para cambiar el comportamiento de binary_search())*/
 
     if (busqueda)
     {
