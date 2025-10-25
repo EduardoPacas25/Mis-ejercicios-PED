@@ -12,7 +12,7 @@ std::vector<struct Luchador> luchadores;
 struct Luchador SolicitarDatos();
 void Imprimir(std::vector<struct Luchador> luchadores);
 std::vector<struct Luchador> Comparar(std::vector<struct Luchador> luchadores);
-
+void ImprimirMayorPeso(std::vector<struct Luchador> luchadores);
 int main()
 {
     Luchador luchador;
@@ -23,6 +23,9 @@ int main()
         luchadores.push_back(luchador);
     }
     luchadores = Comparar(luchadores);
+    Imprimir(luchadores);
+    std::cout << "/////////////////// \n";
+    ImprimirMayorPeso(luchadores);
 
     return 0;
 }
@@ -58,7 +61,7 @@ std::vector<struct Luchador> Comparar(std::vector<struct Luchador> luchadores)
             }
         }
     }
-    return ;
+    return luchadores;
 }
 
 void Imprimir(std::vector<struct Luchador> luchadores)
@@ -69,4 +72,10 @@ void Imprimir(std::vector<struct Luchador> luchadores)
         std::cout << "Nombre: " << l.nombre << "\n"
                   << "Peso: " << l.peso << "\n";
     }
+}
+
+void ImprimirMayorPeso(std::vector<struct Luchador> luchadores)
+{
+    std::cout << "El luchador con mayor peso es: " << luchadores[0].nombre
+              << " con " << luchadores[0].peso << " libras \n";
 }
